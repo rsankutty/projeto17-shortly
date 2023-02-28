@@ -9,7 +9,7 @@ export async function getUserInfo(req, res) {
 			SELECT 
 					users.id,
 					users.name,
-					SUM(urls."visitCount") AS "visitCount" 
+					SUM(urls."visitCount") AS "totalCount" 
 				FROM 
 					users 
 				JOIN urls ON urls."userId" = users.id
@@ -32,7 +32,7 @@ export async function getUserInfo(req, res) {
 	  const body = {
 		id:query.rows[0].id,
 		name:query.rows[0].name,
-		visitCount:query.rows[0].visitCount,
+		visitCount:query.rows[0].totalCount,
 		shortenedUrls:shortenedUrls
 	  }
 	  res.status(200).send(body)
@@ -41,3 +41,27 @@ export async function getUserInfo(req, res) {
 	  res.status(500).send(err.message)
 	}
   }
+
+  export async function getRanking(req, res) {
+    try {
+        const query = await db.query(
+            `
+            SELECT 
+                users.id,
+                users.name,
+                COUNT(urls.id) AS "linksCount",
+                SUM(urls.visitCount) AS "visitCount"
+            FROM users
+            LEFT JOIN urls ON users.id = urls.userId 
+            GROUP BY users.id
+            ORDER BY "visitCount" DESC
+            LIMIT 10;          
+            `
+        )
+
+        return res.status(200).send(query.rows)
+
+    } catch (err) {
+        return res.status(500).send(err.message)
+    }
+}

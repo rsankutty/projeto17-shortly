@@ -28,7 +28,7 @@ CREATE TABLE public.sessions (
     id integer NOT NULL,
     "userId" integer NOT NULL,
     token text NOT NULL,
-    "createdAt" date DEFAULT now() NOT NULL
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -62,7 +62,7 @@ CREATE TABLE public.urls (
     url text NOT NULL,
     "shortUrl" text NOT NULL,
     "visitCount" bigint DEFAULT 0 NOT NULL,
-    "createdAt" date DEFAULT now() NOT NULL
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -94,7 +94,7 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     name text NOT NULL,
     password text,
-    "createdAt" date DEFAULT now() NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL,
     email text NOT NULL
 );
 
@@ -144,22 +144,22 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (4, 1, '2MjYnBOCZaPio1mBObDAw', '2023-02-26');
+INSERT INTO public.sessions VALUES (4, 1, '2MjYnBOCZaPio1mBObDAw', '2023-02-26 00:00:00');
 
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.urls VALUES (6, 1, 'https://google.com', 'rAZ3_abOS1', 2, '2023-02-27');
-INSERT INTO public.urls VALUES (5, 1, 'https://www.facebook.com/', 'MSG-c5UwxY', 3, '2023-02-27');
+INSERT INTO public.urls VALUES (6, 1, 'https://google.com', 'rAZ3_abOS1', 2, '2023-02-27 00:00:00');
+INSERT INTO public.urls VALUES (5, 1, 'https://www.facebook.com/', 'MSG-c5UwxY', 3, '2023-02-27 00:00:00');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'jeff', '$2b$10$9twsdEqYgdMxdQu4JdcB5ujyXlTnQizvUIFfGnqoSDfNkRlHT859O', '2023-02-25', 'jeff@jeff.com');
+INSERT INTO public.users VALUES (1, 'jeff', '$2b$10$9twsdEqYgdMxdQu4JdcB5ujyXlTnQizvUIFfGnqoSDfNkRlHT859O', '2023-02-25 00:00:00', 'jeff@jeff.com');
 
 
 --
