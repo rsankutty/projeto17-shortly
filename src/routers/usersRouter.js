@@ -1,13 +1,13 @@
 import { Router } from "express";
-import {listRentals,closeRental } from "../controllers/usersController.js";
+import {getUserInfo, } from "../controllers/usersController.js";
 import { validateSchema } from "../middlewares/validadeSchemaMiddleware.js";
-import { customersSchema } from "../schemas/customers.model.js";
+import {validateToken} from "../middlewares/validateTokenMiddleware.js"
 
 
 const userRouter = Router()
 
-userRouter.get('/users/me', closeRental)
+userRouter.get('/users/me', validateToken,getUserInfo)
 
-userRouter.get('/ranking', listRentals)
+// userRouter.get('/ranking', listRentals)
 
 export default userRouter
