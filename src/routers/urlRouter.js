@@ -1,17 +1,18 @@
 import { Router } from "express";
-import { listRentals, registerRental,closeRental,deleteRental} from "../controllers/usersController.js";
 import { validateSchema } from "../middlewares/validadeSchemaMiddleware.js";
-import { rentalSchema } from "../schemas/rentals.model.js";
+import {urlSchema} from "../schemas/urlSchema.js"
+import {validateToken} from "../middlewares/validateTokenMiddleware.js"
+import { createShortUrl,getShortUrl,openShortUrl,deleteShortUrl } from "../controllers/urlsController.js";
 
 const urlRouter = Router()
 
-urlRouter.post('/urls/shorten', listRentals)
+urlRouter.post('/urls/shorten', validateToken,validateSchema(urlSchema),createShortUrl)
 
-urlRouter.get('/urls/:id', listRentals)
+urlRouter.get('/urls/:id', getShortUrl)
 
-urlRouter.get('/urls/open/:shortUrl',validateSchema(rentalSchema), registerRental)
+urlRouter.get('/urls/open/:shortUrl',openShortUrl)
 
-urlRouter.delete('/urls/:id', closeRental)
+urlRouter.delete('/urls/:id',validateToken,deleteShortUrl)
 
 
 export default urlRouter

@@ -19,7 +19,6 @@ export async function signIn(req, res) {
 
   try {
     const user = await db.query("SELECT * FROM users WHERE email = $1", [email])
-    console.log(user.rows[0].id)
 
     const comparePassword = await bcrypt.compare(password, user.rows[0].password)
     if (!comparePassword) return res.sendStatus(401)
@@ -40,7 +39,7 @@ export async function signIn(req, res) {
 
       return res.status(200).send({ token })
     }
-    console.log('create')
+
     await db.query('INSERT INTO sessions ("userId", token) VALUES ($1, $2);', [user.rows[0].id, token])
 
     res.status(200).send({ token })
